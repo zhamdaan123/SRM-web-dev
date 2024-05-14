@@ -1,0 +1,469 @@
+exp 4 
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="stylesheet" href="exp4.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Job Registration</title>
+<style>
+    .error {
+        color: red;
+    }
+</style>
+</head>
+<body>
+    <div class="outer">
+    <h2>Job Registration</h2>
+    <form id="registrationForm" onsubmit="return validateForm()">
+          <div>
+            <div style=" display:inline-block;">  
+                <label for="name">Name:</label>
+                <span id="nameError" class="error"></span>
+                <br>
+        
+                <label for="password">Password:</label>
+                
+                <span id="passwordError" class="error"></span><br>
+        
+                <label for="email">Email:</label>
+                
+                <span id="emailError" class="error"></span><br>
+        
+                <label for="phone">Phone:</label>
+                
+                <span id="phoneError" class="error"></span><br>
+        
+                <label for="qualification">Education Qualification:</label>
+                
+                <span id="qualificationError" class="error"></span><br></div>
+            <div style="background-color:blue; display:inline-block;">
+                <input type="text" id="name" name="name"><br>
+                <input type="password" id="password" name="password"><br>
+                <input type="email" id="email" name="email"><br>
+                <input type="tel" id="phone" name="phone"><br>
+                <input type="text" id="qualification" name="qualification"><br>
+
+            </div>
+          </div>
+
+
+      
+
+        <button type="submit">Register</button>
+    </form>
+    </div>
+
+    <script>
+        function validateForm() {
+            let name = document.getElementById('name').value;
+            let password = document.getElementById('password').value;
+            let email = document.getElementById('email').value;
+            let phone = document.getElementById('phone').value;
+            let qualification = document.getElementById('qualification').value;
+
+            let nameError = document.getElementById('nameError');
+            let passwordError = document.getElementById('passwordError');
+            let emailError = document.getElementById('emailError');
+            let phoneError = document.getElementById('phoneError');
+            let qualificationError = document.getElementById('qualificationError');
+
+            let isValid = true;
+
+            // Validate Name
+            if (name.length < 6 || !/^[a-zA-Z]+$/.test(name)) {
+                nameError.textContent = "Name should contain alphabets and should be at least 6 characters long.";
+                isValid = false;
+            } else {
+                nameError.textContent = "";
+            }
+
+            // Validate Password
+            if (password.length < 6) {
+                passwordError.textContent = "Password should be at least 6 characters long.";
+                isValid = false;
+            } else {
+                passwordError.textContent = "";
+            }
+
+            // Validate Email
+            if (!/^\w+@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
+                emailError.textContent = "Invalid email format.";
+                isValid = false;
+            } else {
+                emailError.textContent = "";
+            }
+
+            // Validate Phone Number
+            if (!/^\d{10}$/.test(phone)) {
+                phoneError.textContent = "Phone number should contain 10 digits only.";
+                isValid = false;
+            } else {
+                phoneError.textContent = "";
+            }
+
+            // Validate Education Qualification
+            if (qualification.trim() === "") {
+                qualificationError.textContent = "Education qualification is required.";
+                isValid = false;
+            } else {
+                qualificationError.textContent = "";
+            }
+
+            return isValid;
+        }
+    </script>
+</body>
+</html>
+
+
+EXP 5 
+
+HTML 
+
+<!DOCTYPE html>
+    <html>
+    
+    <head>
+        <link rel="stylesheet" href="test.css">
+        <script src="angularjs.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-route.min.js"></script>
+        <script src="test.js"></script>
+    </head>
+    
+    <body ng-app="routingApp">
+
+        <a href="#!/calculator">Calculator</a>
+        <a href="#!/login">Login</a>
+
+        <center>
+            <div ng-view>
+
+            </div>
+          
+        </center>
+    </body>
+    
+    </html>
+
+    VIEWS
+
+    calculator.html
+
+    <fieldset><div class="result"> {{calcCtrl.display}}</div></fieldset> 
+<form>
+    <label for="input1"> NUMBER 1 :</label>
+    <input id="input1" type="number" placeholder="enter number 1" ng-model="calcCtrl.num1" ng-change="calcCtrl.updateDisplay()"><br>
+    <label for="input2"> NUMBER 2 :</label>
+    <input id="input2" type="number" placeholder="enter number 2" ng-model="calcCtrl.num2" ng-change="calcCtrl.updateDisplay()"><br>
+    
+</form>
+<table>
+    <tr> 
+      
+        <td><button ng-click="calcCtrl.opr='+';calcCtrl.updateDisplay();"> + </button></td>
+        <td><button ng-click="calcCtrl.opr='-';calcCtrl.updateDisplay();"> - </button></td>
+        <td><button ng-click="calcCtrl.opr='*';calcCtrl.updateDisplay();"> * </button></td>
+        
+    </tr>
+    <tr>
+        
+        <td><button ng-click="calcCtrl.opr='/';calcCtrl.updateDisplay();"> / </button></td>
+        <td><button ng-click="calcCtrl.num1=''; calcCtrl.num2=''; calcCtrl.opr='';calcCtrl.updateDisplay();  ">clear</button></td>
+        <td><button ng-click="calcCtrl.calculate()">submit</button></td> 
+        
+    </tr>
+</table>
+
+
+login.html 
+
+ <h2>Login</h2>
+
+    <form name="loginForm" ng-submit="loginCtrl.login()" novalidate>
+        <div>
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" ng-model="loginCtrl.user.name" ng-minlength="3" ng-maxlength="8" required>
+            <span class="error" ng-show="loginForm.name.$error.required && loginForm.name.$dirty">Name is required.</span>
+            <span class="error" ng-show="loginForm.name.$error.minlength && loginForm.name.$dirty">Name must be at least 3 characters long.</span>
+            <span class="error" ng-show="loginForm.name.$error.maxlength && loginForm.name.$dirty">Name must be at most 8 characters long.</span>
+        </div>
+
+        <div>
+            <label for="username">Username (Email):</label>
+            <input type="email" id="username" name="username" ng-model="loginCtrl.user.username" required>
+            <span class="error" ng-show="loginForm.username.$error.required && loginForm.username.$dirty">Username is required.</span>
+            <span class="error" ng-show="loginForm.username.$error.email && loginForm.username.$dirty">Invalid email format.</span>
+        </div>
+
+        <div>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" ng-model="loginCtrl.user.password" ng-minlength="6" required>
+            <span class="error" ng-show="loginForm.password.$error.required && loginForm.password.$dirty">Password is required.</span>
+            <span class="error" ng-show="loginForm.password.$error.minlength && loginForm.password.$dirty">Password must be at least 6 characters long.</span>
+        </div>
+
+        <button type="submit" ng-disabled="loginForm.$invalid">Login</button>
+    </form>
+
+
+
+    JAVASCRIPT
+
+
+    angular.module('routingApp', ['ngRoute'])
+    .config(function($routeProvider) {
+        $routeProvider
+            .when('/calculator', {
+                templateUrl: 'calcula tor.html', //file path 
+                controller: 'CalculatorController as calcCtrl'
+            })
+            .when('/login', {
+                templateUrl: 'login.html',//file path where respective view's html is
+                controller: 'LoginController as loginCtrl' // as loginCtrl thing is used for namespacing , so that multiple instances of same controll can be used
+            })
+            .otherwise({
+                redirectTo: '/calculator'
+            });
+    })
+    .controller('CalculatorController', function() {
+        var vm = this;
+        vm.num1 = '';
+        vm.num2 = '';
+        vm.opr = '';
+        vm.result = '';
+        vm.display = '';
+
+        vm.updateDisplay = function() {
+            vm.display = vm.num1 + ' ' + vm.opr + ' ' + vm.num2;
+        };
+
+        vm.clear = function() {
+            vm.num1 = '';
+            vm.num2 = '';
+            vm.opr = '';
+            vm.result = '';
+            vm.display = '';
+        };
+
+        vm.calculate = function() {
+            var result;
+            if (vm.opr === '+') {
+                result = parseFloat(vm.num1) + parseFloat(vm.num2);
+            } else if (vm.opr === '-') {
+                result = parseFloat(vm.num1) - parseFloat(vm.num2);
+            } else if (vm.opr === '*') {
+                result = parseFloat(vm.num1) * parseFloat(vm.num2);
+            } else if (vm.opr === '/') {
+                result = parseFloat(vm.num1) / parseFloat(vm.num2);
+            }
+            vm.result = result;
+            vm.display = result.toString(); // Update display with result
+        };
+    })
+    .controller('LoginController', function() {
+        var vm = this;
+        vm.user = {};
+
+        vm.login = function() {
+            console.log('Logging in with:', vm.user);
+        };
+    });
+
+
+
+    exp 6 
+ 
+
+ 6a HTML
+
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Read Text File with AJAX</title>
+</head>
+<body>
+    <h1>Content of Text File</h1>
+    <div id="fileContent"></div>
+    <button onclick="readTextFile('exp6at.txt')">Read Text File</button>
+
+
+    <script>
+        var a = 0 ; 
+        
+        function readTextFile(file) {
+
+            if(a===0)
+            {
+            var xhr = new XMLHttpRequest(); 
+            xhr.onreadystatechange = function () { 
+                if (xhr.readyState == 4 && xhr.status == 200) { 
+                    document.getElementById("fileContent").innerHTML = xhr.responseText; 
+                    a=1 
+                }
+            };
+
+            xhr.open('GET',file, true);
+ 
+             xhr.send(); 
+        }
+           
+        else if(a===1) { 
+            document.getElementById("fileContent").innerHTML = ""
+            a=0
+
+        }
+ }
+         </script>
+</body>
+</html>
+
+
+
+6b html
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mobiles Table</title>
+<link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+
+<h2>Mobiles</h2>
+<table id="mobilesTable">
+  <thead>
+    <tr>
+      <th>Model Number</th>
+      <th>Name</th>
+      <th>Price</th>
+      <th>Image</th>
+    </tr>
+  </thead>
+  <tbody id="mobilesBody">
+  </tbody>
+</table>
+
+<button id="load" onclick=" fetchMobiles();">load</button>
+
+<script src="script.js"></script>
+
+</body>
+</html>
+
+
+6b JAVASCRIPT 
+
+function fetchMobiles() {
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function() {
+      if (xhr.readyState === 4 && xhr.status === 200) {
+        var mobiles = JSON.parse(xhr.responseText);
+        displayMobiles(mobiles);
+      }
+    };
+    xhr.open("GET", "mobiles.json", true);
+    xhr.send();
+  }
+  
+  // Function to display mobiles in the table
+  function displayMobiles(mobiles) {
+    var mobilesBody = document.getElementById("mobilesBody");
+    var html = '';
+    mobiles.forEach(function(mobile) {
+      html += `
+        <tr>
+          <td>${mobile.model_number}</td>
+          <td>${mobile.name}</td>
+          <td>${mobile.price}</td>
+          <td><img src="${mobile.image}" alt="${mobile.name}"></td>
+        </tr>
+      `;
+    });
+    mobilesBody.innerHTML = html;
+  }
+  
+
+  6c HTML
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cars Information</title>
+<link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+
+<h2>Cars Information</h2>
+<div id="carsInfo"></div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
+
+
+6c JAVASCRIPT
+
+
+// script.js
+
+// Function to fetch data from XML file using AJAX
+function fetchCars() {
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function() {
+      if (xhr.readyState === 4 && xhr.status === 200) {
+        var xmlDoc = xhr.responseXML;
+        displayCars(xmlDoc);
+      }
+    };
+    xhr.open("GET", "cars.xml", true);
+    xhr.send();
+  }
+  
+  // Function to display cars information
+  function displayCars(xmlDoc) {
+    var carsInfoDiv = document.getElementById("carsInfo");
+    var cars = xmlDoc.getElementsByTagName("car");
+    var html = "<ul>";
+    for (var i = 0; i < cars.length; i++) {
+      var brand = cars[i].getElementsByTagName("brand")[0].textContent;
+      var model = cars[i].getElementsByTagName("model")[0].textContent;
+      var year = cars[i].getElementsByTagName("year")[0].textContent;
+      var color = cars[i].getElementsByTagName("color")[0].textContent;
+      html += "<li>Brand: " + brand + ", Model: " + model + ", Year: " + year + ", Color: " + color + "</li>";
+    }
+    html += "</ul>";
+    carsInfoDiv.innerHTML = html;
+  }
+  
+  // Fetch cars information when the page loads
+  fetchCars();
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

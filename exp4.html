@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="stylesheet" href="exp4.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Job Registration</title>
+<style>
+    .error {
+        color: red;
+    }
+</style>
+</head>
+<body>
+    <div class="outer">
+    <h2>Job Registration</h2>
+    <form id="registrationForm" onsubmit="return validateForm()">
+          <div>
+            <div style=" display:inline-block;">  
+                <label for="name">Name:</label>
+                <span id="nameError" class="error"></span>
+                <br>
+        
+                <label for="password">Password:</label>
+                
+                <span id="passwordError" class="error"></span><br>
+        
+                <label for="email">Email:</label>
+                
+                <span id="emailError" class="error"></span><br>
+        
+                <label for="phone">Phone:</label>
+                
+                <span id="phoneError" class="error"></span><br>
+        
+                <label for="qualification">Education Qualification:</label>
+                
+                <span id="qualificationError" class="error"></span><br></div>
+            <div style="background-color:blue; display:inline-block;">
+                <input type="text" id="name" name="name"><br>
+                <input type="password" id="password" name="password"><br>
+                <input type="email" id="email" name="email"><br>
+                <input type="tel" id="phone" name="phone"><br>
+                <input type="text" id="qualification" name="qualification"><br>
+
+            </div>
+          </div>
+
+
+      
+
+        <button type="submit">Register</button>
+    </form>
+    </div>
+
+    <script>
+        function validateForm() {
+            let name = document.getElementById('name').value;
+            let password = document.getElementById('password').value;
+            let email = document.getElementById('email').value;
+            let phone = document.getElementById('phone').value;
+            let qualification = document.getElementById('qualification').value;
+
+            let nameError = document.getElementById('nameError');
+            let passwordError = document.getElementById('passwordError');
+            let emailError = document.getElementById('emailError');
+            let phoneError = document.getElementById('phoneError');
+            let qualificationError = document.getElementById('qualificationError');
+
+            let isValid = true;
+
+            // Validate Name
+            if (name.length < 6 || !/^[a-zA-Z]+$/.test(name)) {
+                nameError.textContent = "Name should contain alphabets and should be at least 6 characters long.";
+                isValid = false;
+            } else {
+                nameError.textContent = "";
+            }
+
+            // Validate Password
+            if (password.length < 6) {
+                passwordError.textContent = "Password should be at least 6 characters long.";
+                isValid = false;
+            } else {
+                passwordError.textContent = "";
+            }
+
+            // Validate Email
+            if (!/^\w+@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
+                emailError.textContent = "Invalid email format.";
+                isValid = false;
+            } else {
+                emailError.textContent = "";
+            }
+
+            // Validate Phone Number
+            if (!/^\d{10}$/.test(phone)) {
+                phoneError.textContent = "Phone number should contain 10 digits only.";
+                isValid = false;
+            } else {
+                phoneError.textContent = "";
+            }
+
+            // Validate Education Qualification
+            if (qualification.trim() === "") {
+                qualificationError.textContent = "Education qualification is required.";
+                isValid = false;
+            } else {
+                qualificationError.textContent = "";
+            }
+
+            return isValid;
+        }
+    </script>
+</body>
+</html>

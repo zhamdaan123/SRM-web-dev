@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Read Text File with AJAX</title>
+</head>
+<body>
+    <h1>Content of Text File</h1>
+    <div id="fileContent"></div>
+    <button onclick="readTextFile('exp6at.txt')">Read Text File</button>
+
+
+    <script>
+        var a = 0 ; 
+        
+        function readTextFile(file) {
+
+            if(a===0)
+            {
+            var xhr = new XMLHttpRequest(); 
+            xhr.onreadystatechange = function () { 
+                if (xhr.readyState == 4 && xhr.status == 200) { 
+                    document.getElementById("fileContent").innerHTML = xhr.responseText; 
+                    a=1 
+                }
+            };
+
+            xhr.open('GET',file, true);
+ 
+             xhr.send(); 
+        }
+           
+        else if(a===1) { 
+            document.getElementById("fileContent").innerHTML = ""
+            a=0
+
+        }
+ }
+         </script>
+</body>
+</html>

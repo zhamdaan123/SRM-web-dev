@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+           Media Elements
+        </title>
+    </head>
+    <body>
+    <p>THIS IS A VIDEO ELEMENT</p>
+    <video height="100px" controls>
+        <source src="vid1.mp4">
+        <source src="vid2.mp4">
+        <p>failed to load</p>
+    </video>
+    <video height="100px" controls>
+        <source src="vid2.mp4">
+        <source src="vid1.mp4">
+        <p>failed to load</p>
+    </video>
+    <p> THIS IS AN AUDIO ELEMENT</p>
+    <audio controls>
+        <source src="aud1.mp3">
+        <p>failed to load</p>
+    </audio>
+
+    <p>USING EMBED </p>
+    
+    <embed src="loading2.swf" 
+           type="application/x-shockwave-flash">
+
+    <p>embed tag is no longer supported in modern browsers</p>
+    <br>
+    <hr>
+    <p>CAPTIONS</p>
+    <video height="200px" controls>
+        <source src="vid2.mp4">
+        <source src="vid1.mp4">
+        <track default kind="captions" srclang="en" src="exp2.vtt">
+        <p>failed to load</p>
+    </video>
+    <video height="200px" controls src="vid1.mp4">
+    <track default kind="captions" srclang="en" src="exp2.vtt">
+    </video>
+    </body>
+
+</html>
